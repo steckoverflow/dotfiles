@@ -1,11 +1,13 @@
 theme=ayu
+
 #catppuccin-latte
 macos-titlebar-style = tabs
 window-save-state = always
 
 # looking good
-font-size=15
-background-opacity=0.94
+font-family="FiraCode Nerd Font Mono"
+font-size=16
+background-opacity=0.84
 background-blur=true
 
 shell-integration-features = no-cursor,sudo,no-title
