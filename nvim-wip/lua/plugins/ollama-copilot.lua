@@ -1,0 +1,203 @@
+return {}
+-- return {
+-- 	{
+-- 		"olimorris/codecompanion.nvim",
+-- 		dependencies = {
+-- 			"nvim-lua/plenary.nvim",
+-- 			"nvim-treesitter/nvim-treesitter",
+-- 			"hrsh7th/nvim-cmp",           -- for completion integration
+-- 			"nvim-telescope/telescope.nvim", -- optional for chat history
+-- 			{
+-- 				"stevearc/dressing.nvim",   -- optional for better UI
+-- 				opts = {},
+-- 			},
+-- 		},
+-- 		config = function()
+-- 			require("codecompanion").setup({
+-- 				extensions = {
+-- 					mcphub = {
+-- 						callback = "mcphub.extensions.codecompanion",
+-- 						opts = {
+-- 							show_result_in_chat = true, -- Show mcp tool results in chat
+-- 							make_vars = true,    -- Convert resources to #variables
+-- 							make_slash_commands = true, -- Add prompts as /slash commands
+-- 						},
+-- 					},
+-- 				},
+-- 				strategies = {
+-- 					chat = {
+-- 						adapter = "ollama",
+-- 					},
+-- 					inline = {
+-- 						adapter = "ollama",
+-- 					},
+-- 					agent = {
+-- 						adapter = "ollama",
+-- 					},
+-- 				},
+-- 				adapters = {
+-- 					ollama = function()
+-- 						return require("codecompanion.adapters").extend("ollama", {
+-- 							name = "ollama",
+-- 							url = "http://localhost:11434",
+-- 							headers = {
+-- 								["Content-Type"] = "application/json",
+-- 							},
+-- 							parameters = {
+-- 								sync = true,
+-- 							},
+-- 							schema = {
+-- 								model = {
+-- 									default = "qwen2.5-coder:3b",
+-- 									choices = {
+-- 										"deepseek-coder:base",
+-- 									},
+-- 								},
+-- 								num_ctx = {
+-- 									default = 16384,
+-- 								},
+-- 								temperature = {
+-- 									default = 0.1,
+-- 								},
+-- 							},
+-- 						})
+-- 					end,
+-- 				},
+-- 				display = {
+-- 					action_palette = {
+-- 						width = 95,
+-- 						height = 10,
+-- 					},
+-- 					chat = {
+-- 						window = {
+-- 							layout = "vertical", -- or "horizontal", "buffer"
+-- 							width = 0.45,
+-- 							height = 0.8,
+-- 						},
+-- 						show_settings = true,
+-- 					},
+-- 				},
+-- 				opts = {
+-- 					log_level = "ERROR", -- TRACE, DEBUG, ERROR, INFO
+-- 					send_code = true, -- send code context with requests
+-- 				},
+-- 				prompt_library = {
+-- 					["Custom Explanation"] = {
+-- 						strategy = "chat",
+-- 						description = "Explain code in detail",
+-- 						opts = {
+-- 							mapping = "<LocalLeader>ce",
+-- 							modes = { "v" },
+-- 							short_name = "explain",
+-- 							auto_submit = true,
+-- 							user_prompt = true,
+-- 							stop_context_insertion = true,
+-- 						},
+-- 						prompts = {
+-- 							{
+-- 								role = "user",
+-- 								content = function(context)
+-- 									return "Please explain this code in detail:\n\n```"
+-- 											.. context.filetype
+-- 											.. "\n"
+-- 											.. context.selection
+-- 											.. "\n```"
+-- 								end,
+-- 								opts = {
+-- 									contains_code = true,
+-- 								},
+-- 							},
+-- 						},
+-- 					},
+-- 					["Optimize Code"] = {
+-- 						strategy = "inline",
+-- 						description = "Optimize selected code",
+-- 						opts = {
+-- 							mapping = "<LocalLeader>co",
+-- 							modes = { "v" },
+-- 							short_name = "optimize",
+-- 							auto_submit = true,
+-- 						},
+-- 						prompts = {
+-- 							{
+-- 								role = "user",
+-- 								content = function(context)
+-- 									return
+-- 											"Optimize this code for better performance and readability. Only return the optimized code without explanations:\n\n```"
+-- 											.. context.filetype
+-- 											.. "\n"
+-- 											.. context.selection
+-- 											.. "\n```"
+-- 								end,
+-- 								opts = {
+-- 									contains_code = true,
+-- 								},
+-- 							},
+-- 						},
+-- 					},
+-- 				},
+-- 			})
+-- 		end,
+-- 		keys = {
+-- 			-- Chat mappings
+-- 			{ "<LocalLeader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat" },
+-- 			{
+-- 				"<LocalLeader>ca",
+-- 				"<cmd>CodeCompanionActions<cr>",
+-- 				desc = "CodeCompanion Actions",
+-- 				mode = { "n", "v" },
+-- 			},
+--
+-- 			-- Inline completion
+-- 			{
+-- 				"<LocalLeader>ci",
+-- 				"<cmd>CodeCompanionInline<cr>",
+-- 				desc = "CodeCompanion Inline",
+-- 				mode = { "n", "v" },
+-- 			},
+--
+-- 			-- Quick actions
+-- 			{ "<LocalLeader>cq", "<cmd>CodeCompanionChat Add<cr>",    desc = "Add to CodeCompanion Chat", mode = "v" },
+--
+-- 			-- Custom prompts (defined above)
+-- 			{ "<LocalLeader>ce", desc = "Explain Code",               mode = "v" },
+-- 			{ "<LocalLeader>co", desc = "Optimize Code",              mode = "v" },
+-- 		},
+-- 		cmd = {
+-- 			"CodeCompanion",
+-- 			"CodeCompanionChat",
+-- 			"CodeCompanionActions",
+-- 			"CodeCompanionInline",
+-- 		},
+-- 	},
+--
+-- 	-- nvim-cmp integration for AI completion
+-- 	{
+-- 		"hrsh7th/nvim-cmp",
+-- 		dependencies = {
+-- 			"hrsh7th/cmp-nvim-lsp",
+-- 			"hrsh7th/cmp-buffer",
+-- 			"hrsh7th/cmp-path",
+-- 			"L3MON4D3/LuaSnip",
+-- 			"saadparwaiz1/cmp_luasnip",
+-- 		},
+-- 		opts = function(_, opts)
+-- 			local cmp = require("cmp")
+--
+-- 			opts.sources = cmp.config.sources(vim.list_extend(opts.sources or {}, {
+-- 				{
+-- 					name = "codecompanion",
+-- 					group_index = 1,
+-- 					priority = 100,
+-- 				},
+-- 			}))
+--
+-- 			-- Optional: customize completion behavior for AI suggestions
+-- 			opts.completion = vim.tbl_extend("force", opts.completion or {}, {
+-- 				autocomplete = { "TextChanged" },
+-- 			})
+--
+-- 			return opts
+-- 		end,
+-- 	},
+-- }
