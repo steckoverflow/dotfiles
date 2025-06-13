@@ -31,8 +31,7 @@ vim.o.inccommand = "split"
 vim.opt.cmdheight = 0
 
 --Tabs
---
---vim.opt.expandtab = true -- Convert tabs to spaces
+vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.shiftwidth = 4 -- Amount to indent with << and >>
 vim.opt.tabstop = 4 -- How many spaces are shown per Tab
 vim.opt.softtabstop = 4 -- How many spaces are applied when pressing Tab
@@ -40,3 +39,12 @@ vim.opt.softtabstop = 4 -- How many spaces are applied when pressing Tab
 vim.opt.smarttab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true -- Keep identation from previous line
+
+-- Configure which messages to shorten or suppress to avoid the hit-enter prompt.
+-- 'c': Don't pass the "ins-completion-menu" messages to the user.
+-- 'C': Don't give the "press ENTER" message when a message is split over several lines.
+-- 'A': Use "..." for long messages in the last line of the screen.
+-- 'I': Don't show the intro message when starting Neovim.
+vim.opt.shortmess = "coI" -- Start with a base of common settings
+vim.opt.shortmess:append("A")
+vim.opt.shortmess:append("C")
