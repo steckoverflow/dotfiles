@@ -8,7 +8,16 @@ return {
 			ollama = {
 				endpoint = "http://127.0.0.1:11434", -- Note that there is no /v1 at the end.
 				model = "qwen3:30b",
-				--	model = "qwen2.5-coder:3b",
+				extra_request_body = {
+					options = {
+						temperature = 0.6,
+						num_ctx = 20480,
+						num_batch = 512,
+						top_k = 20,
+						top_p = 0.95,
+						min_p = 0,
+					},
+				}, --	model = "qwen2.5-coder:3b",
 			},
 		},
 	},
