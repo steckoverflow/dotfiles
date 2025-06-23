@@ -1,4 +1,4 @@
-theme=cyberdream
+theme=rose-pine
 
 #catppuccin-latte
 macos-titlebar-style = tabs
@@ -6,8 +6,8 @@ window-save-state = always
 
 # looking good
 font-family="FiraCode Nerd Font Mono"
-font-size=13
-background-opacity=0.82
+font-size=16
+background-opacity=0.85
 background-blur=true
 
 shell-integration-features = no-cursor,sudo,no-title
