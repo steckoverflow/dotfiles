@@ -1,17 +1,33 @@
-theme=rose-pine
+theme=duckbones
 
 #catppuccin-latte
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+mouse-hide-while-typing = true
+
 window-save-state = always
 
 # looking good
 font-family="FiraCode Nerd Font Mono"
 font-size=16
-background-opacity=0.85
-background-blur=true
+background = #000000
+background-opacity=0.75
+background-blur-radius=23
+confirm-close-surface = false
+window-decoration = auto
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = false
 
-shell-integration-features = no-cursor,sudo,no-title
+auto-update = check
+auto-update-channel = stable
+
+shell-integration-features = no-cursor
+copy-on-select = clipboard
+
 cursor-style = block
+cursor-style-blink = false
+cursor-invert-fg-bg = true
 
 keybind = cmd+s>n=new_window
 keybind = cmd+s>r=reload_config
