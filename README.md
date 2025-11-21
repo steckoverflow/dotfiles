@@ -2,6 +2,10 @@
 
 Personal macOS configuration files and settings.
 
+**Note** Use of [Neovim config](https://github.com/steckoverflow/neovim) and dotfiles
+
+![Screenshot](example.jpg)
+
 ## 🚀 Features
 
 - **Window Management**: [AeroSpace](https://github.com/nikitabobko/AeroSpace) - Tiling window manager with vim-style navigation
