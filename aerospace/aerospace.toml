@@ -1,4 +1,5 @@
-# Run Sketchybar together with AeroSpace
+config-version = 2
+
 after-startup-command = ['exec-and-forget sketchybar']
 
 # Notify Sketchybar about workspace change
@@ -7,25 +8,28 @@ exec-on-workspace-change = ['/bin/bash', '-c',
 ]
 
 # Start AeroSpace at login
-start-at-login = true 
+start-at-login = false
+
+# WARNING: Broken?
+# auto-reload-config = false
+
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
-accordion-padding = 30
+accordion-padding = 0
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 automatically-unhide-macos-hidden-apps = true
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+on-mode-changed = []
+key-mapping.preset = 'qwerty'
 
-[key-mapping]
-    preset = 'qwerty'
-
-[gaps]
-inner.horizontal = 20
-inner.vertical =   20
-outer.left =       15
-outer.bottom =     15
-outer.right =      15
-outer.top =        40
+gaps.inner.horizontal = 15
+gaps.inner.vertical =   8
+gaps.outer.left =       90
+gaps.outer.bottom =     10
+gaps.outer.top =        12
+gaps.outer.right =      12
 
 [mode.main.binding]
     alt-e = 'mode service'
@@ -104,10 +108,28 @@ check-further-callbacks = true
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+if.window-title-regex-substring = 'Huddle'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.spotify.client'
 run = 'move-node-to-workspace 8'
+
+[[on-window-detected]]
+if.app-id = 'org.whispersystems.signal-desktop'
+run = 'move-node-to-workspace 9'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.reminders'
 check-further-callbacks = true
 run = 'layout floating'
+

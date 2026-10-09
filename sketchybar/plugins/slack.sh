@@ -1,22 +1,28 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-STATUS_LABEL=$(lsappinfo info -only StatusLabel "Slack")
-ICON="󰒱"
+source "${CONFIG_DIR:-$HOME/.config/sketchybar}/plugins/popup.sh"
+STATUS_LABEL=$(lsappinfo info -only StatusLabel "Slack" 2>/dev/null)
+LABEL="-"
+ICON_COLOR="$SUBTEXT0"
+DETAIL="Slack is not running"
 
 if [[ $STATUS_LABEL =~ \"label\"=\"([^\"]*)\" ]]; then
-    LABEL="${BASH_REMATCH[1]}"
-
-    if [[ $LABEL == "" ]]; then
-        ICON_COLOR="0xffa6da95"
-    elif [[ $LABEL == "•" ]]; then
-        ICON_COLOR="0xffeed49f"
-    elif [[ $LABEL =~ ^[0-9]+$ ]]; then
-        ICON_COLOR="0xffed8796"
-    else
-        exit 0
-    fi
-else
-  exit 0
+  STATUS="${BASH_REMATCH[1]}"
+  case "$STATUS" in
+    "") LABEL=""; ICON_COLOR="$GREEN"; DETAIL="Slack: no unread messages" ;;
+    "•") LABEL=""; ICON_COLOR="$YELLOW"; DETAIL="Slack: unread messages" ;;
+    *)
+      if [[ $STATUS =~ ^[0-9]+$ ]]; then
+        LABEL="$STATUS"
+        [ "${#LABEL}" -le 3 ] || LABEL="99+"
+        ICON_COLOR="$RED"
+        DETAIL="Slack: $STATUS notifications"
+      else
+        DETAIL="Slack: status unavailable"
+      fi
+      ;;
+  esac
 fi
 
-sketchybar --set $NAME icon=$ICON label="${LABEL}" icon.color=${ICON_COLOR}
+sketchybar --set "$NAME" label="$LABEL" icon.color="$ICON_COLOR" \
+  --set "$NAME.details" label="$DETAIL"

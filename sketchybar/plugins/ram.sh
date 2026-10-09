@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-sketchybar -m --set "$NAME" label="$(memory_pressure | grep "System-wide memory free percentage:" | awk '{ printf("%02.0f\n", 100-$5"%") }')%"
+source "${CONFIG_DIR:-$HOME/.config/sketchybar}/plugins/popup.sh"
+USAGE=$(memory_pressure | awk '/System-wide memory free percentage:/ { printf "%.0f", 100 - $5 }')
+[ -n "$USAGE" ] || exit 0
+sketchybar --set "$NAME" label="$USAGE%" \
+  --set "$NAME.details" label="Memory: $USAGE% non-free (memory_pressure)"

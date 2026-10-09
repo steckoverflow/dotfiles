@@ -1,8 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# The $NAME variable is passed from sketchybar and holds the name of
-# the item invoking this script:
-# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
-
-sketchybar --set "$NAME" label="$(date '+%A, %d %b, %I:%M %p')"
-
+source "${CONFIG_DIR:-$HOME/.config/sketchybar}/plugins/popup.sh"
+sketchybar --set "$NAME" label="$(date '+%H:%M')" \
+  --set "$NAME.details" label="$(date '+%A, %d %B %Y | %I:%M %p')"

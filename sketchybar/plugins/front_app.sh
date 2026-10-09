@@ -1,10 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# Some events send additional information specific to the event in the $INFO
-# variable. E.g. the front_app_switched event sends the name of the newly
-# focused application in the $INFO variable:
-# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
+source "${CONFIG_DIR:-$HOME/.config/sketchybar}/plugins/popup.sh"
+[ "$SENDER" = front_app_switched ] || exit 0
+[ -n "$INFO" ] || exit 0
 
-if [ "$SENDER" = "front_app_switched" ]; then
-  sketchybar --set "$NAME" label="$INFO"
-fi
+sketchybar --set "$NAME" label="$INFO" \
+  --set "$NAME.details" label="$INFO"

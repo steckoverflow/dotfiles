@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
-#disk.sh
 
-sketchybar -m --set "$NAME" label="$(df -H | grep -E '^(/dev/disk3s5).' | awk '{ printf ("%s\n", $5) }')"
+source "${CONFIG_DIR:-$HOME/.config/sketchybar}/plugins/popup.sh"
+USAGE=$(df -P "$HOME" | awk 'NR == 2 { print $5 }')
+[ -n "$USAGE" ] || exit 0
+sketchybar --set "$NAME" label="$USAGE" \
+  --set "$NAME.details" label="Home filesystem: $USAGE used"
