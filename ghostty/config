@@ -1,17 +1,15 @@
-theme = cyberpunk 
-
-#catppuccin-latte
+theme = Catppuccin Latte
 macos-titlebar-style = hidden
 mouse-hide-while-typing = true
 
 window-save-state = always
 
 # looking good
-font-family="FiraCode Nerd Font Mono"
+font-family="FiraCodeNerdFont"
 font-size=12
-background = #000000
-background-opacity=0.90
-background-blur-radius=23
+# background = #000000
+background-opacity=0.82
+background-blur-radius=15
 
 auto-update = check
 auto-update-channel = stable
