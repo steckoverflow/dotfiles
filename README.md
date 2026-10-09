@@ -4,14 +4,12 @@ Personal macOS dotfiles for a keyboard-driven desktop: AeroSpace tiling, a
 SketchyBar left rail, and a Ghostty + tmux terminal workflow. The desktop and
 terminal use Catppuccin Latte; the Starship prompt uses Catppuccin Mocha.
 
-## Background Example
+## Desktop Preview
 
-![Pastel wave wallpaper example](background.jpg)
+![Configured macOS desktop with the SketchyBar left rail, Ghostty terminal, Neovim, and a tiled browser](Example.jpg)
 
-[JPEG example](background.jpg) / [Original PNG](background.png)
-
-This is the wallpaper, not a screenshot of the configured desktop. Wallpapers
-are included as assets; the configuration does not set the desktop background.
+The configured desktop with Catppuccin Latte styling, the SketchyBar left rail,
+and AeroSpace window tiling.
 
 ## What's Included
 
