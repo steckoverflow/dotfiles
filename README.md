@@ -1,22 +1,24 @@
 # dotfiles
 
-Personal macOS dotfiles for a keyboard-driven desktop: AeroSpace tiling, a
-SketchyBar left rail, and a Ghostty + tmux terminal workflow. The desktop and
-terminal use Catppuccin Latte; the Starship prompt uses Catppuccin Mocha.
+Personal macOS dotfiles for a keyboard-driven desktop: AeroSpace tiling and a
+Ghostty + tmux terminal workflow. The desktop and terminal use Catppuccin
+Latte; the Starship prompt uses Catppuccin Mocha.
 
 ## Desktop Preview
 
 ![Configured macOS desktop with the SketchyBar left rail, Ghostty terminal, Neovim, and a tiled browser](Example.jpg)
 
-The configured desktop with Catppuccin Latte styling, the SketchyBar left rail,
-and AeroSpace window tiling.
+The configured desktop with Catppuccin Latte styling and AeroSpace window tiling.
+
+> **Note:** The SketchyBar left rail shown here is no longer in active use.
+> See the [SketchyBar](sketchybar/) section below, marked as deprecated.
 
 ## What's Included
 
 | Configuration | Purpose |
 | --- | --- |
-| [AeroSpace](aerospace/aerospace.toml) | Nine persistent workspaces, Vim-style navigation, application routing, and room for the left rail |
-| [SketchyBar](sketchybar/) | A 72-pixel Latte rail with workspace tiles, focused app, CPU, disk, memory, Slack status, and a 24-hour clock |
+| [AeroSpace](aerospace/aerospace.toml) | Nine persistent workspaces, Vim-style navigation, and application routing |
+| ~~[SketchyBar](sketchybar/)~~ | **Deprecated** – was a 72-pixel Latte rail with workspace tiles, system stats, and clock. No longer in active use. |
 | [Borders](borders/bordersrc) | Rounded, 10-pixel window borders with a peach focus highlight |
 | [Ghostty](ghostty/config) | Latte theme, translucent background, Fira Code Nerd Font, and leader-key tab/split controls |
 | [tmux](tmux/tmux.conf) | Mouse support, vi copy mode, 33% splits, Vim navigation, and a Latte dotbar |
@@ -41,18 +43,16 @@ With [Homebrew](https://brew.sh/):
 
 ```sh
 brew install --cask nikitabobko/tap/aerospace ghostty
-brew install FelixKratz/formulae/sketchybar FelixKratz/formulae/borders tmux starship
-brew install --cask font-fira-code-nerd-font font-hack-nerd-font
+brew install FelixKratz/formulae/borders tmux starship
+brew install --cask font-fira-code-nerd-font
 ```
 
 Use an AeroSpace version supporting `config-version = 2` and
-`persistent-workspaces`, and a SketchyBar version supporting `position=left`
-(the rail is documented against SketchyBar 2.24.0). Grant macOS Accessibility
-permissions when prompted by the window-management tools.
+`persistent-workspaces`. Grant macOS Accessibility permissions when prompted by
+the window-management tools.
 
-Ghostty requests `FiraCodeNerdFont`; SketchyBar uses `Hack Nerd Font` for icons
-and `SF Pro` for labels. If text or icons fall back, check the installed font
-family names and adjust the corresponding config.
+Ghostty requests `FiraCodeNerdFont`. If text falls back, check the installed
+font family names and adjust the corresponding config.
 
 ### 2. Clone and Link
 
@@ -60,7 +60,7 @@ family names and adjust the corresponding config.
 mkdir -p "$HOME/.config"
 git clone https://github.com/steckoverflow/dotfiles.git "$HOME/.config/dotfiles"
 
-for config in aerospace borders ghostty sketchybar tmux; do
+for config in aerospace borders ghostty tmux; do
   ln -s "$HOME/.config/dotfiles/$config" "$HOME/.config/$config"
 done
 ln -s "$HOME/.config/dotfiles/starship.toml" "$HOME/.config/starship.toml"
@@ -96,10 +96,8 @@ brew services start borders
 open -a AeroSpace
 ```
 
-AeroSpace starts SketchyBar and sends workspace-change events to it. Avoid
-starting a second SketchyBar instance through a separate service. AeroSpace's
-`start-at-login` is currently `false`; enable it in the config if desired.
-Ensure `sketchybar` is available on AeroSpace's `PATH`.
+AeroSpace's `start-at-login` is currently `false`; enable it in the config if
+desired.
 
 ## Keybindings
 
@@ -166,13 +164,15 @@ Pane and window indexes start at 1, and windows renumber when closed. With
 
 ## Customization
 
-- **Rail:** edit [SketchyBar colors](sketchybar/colors.sh), workspace icons in [sketchybarrc](sketchybar/sketchybarrc), and accents in [the workspace plugin](sketchybar/plugins/aerospace.sh). Click a workspace tile to switch; hover over tiles for details. See the [rail README](sketchybar/README.md) for layout notes.
-- **Window spacing:** AeroSpace reserves 90 pixels on the left for the 72-pixel rail and its margin. Keep at least 84 pixels when changing gaps.
+- **Window spacing:** adjust gaps in [aerospace.toml](aerospace/aerospace.toml).
 - **Terminal:** adjust font, opacity, and theme in [Ghostty's config](ghostty/config). The bundled `cyberdream` theme is an alternative, not the active theme.
 - **Prompt:** change `palette` in [starship.toml](starship.toml). All four Catppuccin palettes are defined; Mocha is selected by default.
 - **tmux bar:** change the `@tmux-dotbar-*` settings in [tmux.conf](tmux/tmux.conf).
 
-After editing, use `aerospace reload-config` or `sketchybar --reload` as needed.
-Ghostty and tmux have reload shortcuts listed above. Battery and volume plugin
-scripts exist, but are not enabled in the current rail. The Finder helper is
-also not bound to a shortcut by default.
+After editing, use `aerospace reload-config` as needed. Ghostty and tmux have
+reload shortcuts listed above.
+
+### Deprecated: SketchyBar
+
+The [SketchyBar](sketchybar/) configuration is no longer in active use. The
+files are retained for reference but are not part of the current desktop setup.
