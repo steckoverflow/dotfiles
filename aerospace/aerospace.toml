@@ -1,11 +1,10 @@
 config-version = 2
 
-after-startup-command = ['exec-and-forget sketchybar']
-
-# Notify Sketchybar about workspace change
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
+# after-startup-command = ['exec-and-forget sketchybar']
+# # Notify Sketchybar about workspace change
+# exec-on-workspace-change = ['/bin/bash', '-c',
+#     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+# ]
 
 # Start AeroSpace at login
 start-at-login = false
@@ -25,8 +24,8 @@ on-mode-changed = []
 key-mapping.preset = 'qwerty'
 
 gaps.inner.horizontal = 15
-gaps.inner.vertical =   8
-gaps.outer.left =       90
+gaps.inner.vertical =   15
+gaps.outer.left =       12
 gaps.outer.bottom =     10
 gaps.outer.top =        12
 gaps.outer.right =      12
